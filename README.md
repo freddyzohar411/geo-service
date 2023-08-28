@@ -10,6 +10,9 @@ import data from /resources/country.sql
 ~~~
 Change the credentials for DB in application.properties
 
-
+## Port
+~~~bash
+8300
+~~~
 
  
