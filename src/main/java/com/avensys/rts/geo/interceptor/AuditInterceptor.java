@@ -1,12 +1,12 @@
 package com.avensys.rts.geo.interceptor;
 
+import org.apache.commons.lang3.RandomStringUtils;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.springframework.web.servlet.HandlerInterceptor;
+
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import org.apache.commons.lang3.RandomStringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.web.servlet.HandlerInterceptor;
-import org.springframework.web.servlet.ModelAndView;
 
 /***
  * This class is used to intercept the request and inject audit data into the request context.
@@ -15,7 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 public class AuditInterceptor implements HandlerInterceptor   {
 
-    private final Logger LOGGER = LoggerFactory.getLogger(AuditInterceptor.class);
+	private static final Logger log = LogManager.getLogger(AuditInterceptor.class);
 
     /**
      * This method is used to intercept the request and inject audit data into the request context.
@@ -27,7 +27,7 @@ public class AuditInterceptor implements HandlerInterceptor   {
      */
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        LOGGER.info("Pre-handling request");
+     
 
         // Get In-time in milliseconds and set in request context
         request.setAttribute("in", System.currentTimeMillis());
@@ -35,6 +35,7 @@ public class AuditInterceptor implements HandlerInterceptor   {
         // Get Thread ID and set in request context
         String threadId = RandomStringUtils.randomAlphanumeric(10);
         request.setAttribute("threadId", threadId);
+        log.info("Pre-handling request :: THREAD_ID :: {} ",threadId);
 
         return true; // Continue the request processing chain
     }

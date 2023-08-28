@@ -1,5 +1,7 @@
 package com.avensys.rts.geo.controller;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
@@ -22,6 +24,8 @@ import com.avensys.rts.geo.util.ResponseUtil;
 @RequestMapping(value = "/geo/country")
 public class GeoController {
 
+	private static final Logger log = LogManager.getLogger(GeoController.class);
+	
 	@Autowired
 	private CountryService countryService;
 
@@ -30,7 +34,7 @@ public class GeoController {
 
 	@GetMapping("/")
 	public  ResponseEntity<Object> getCountries() {
-		
+		log.info("Get List of all countries : Controller ");
 		return ResponseUtil.generateSuccessResponse(countryService.getCountryList(), HttpStatus.OK,
 				messageSource.getMessage("geo.success", null, LocaleContextHolder.getLocale()));
 	}

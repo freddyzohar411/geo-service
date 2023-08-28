@@ -4,6 +4,8 @@ package com.avensys.rts.geo.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -19,6 +21,8 @@ import com.avensys.rts.geo.repository.CountryRepository;
 @Component
 public class CountryServiceImpl implements CountryService {
 
+	private static final Logger log = LogManager.getLogger(CountryServiceImpl.class);
+	
 	@Autowired
 	CountryRepository countryRepo;
 	
@@ -27,7 +31,9 @@ public class CountryServiceImpl implements CountryService {
 	 */
 	@Override
 	public Countries getCountryList() {
-		return toDTO(countryRepo.findAll());
+		Countries res =toDTO(countryRepo.findAll());
+		log.info("Get List of all countries : TOTAL : {} ", res.getCountries().size());
+		return res;
 	}
 
 	/***
