@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.avensys.rts.constants.Constants;
 import com.avensys.rts.geo.service.CountryService;
 import com.avensys.rts.geo.util.ResponseUtil;
 
@@ -36,6 +37,6 @@ public class GeoController {
 	public  ResponseEntity<Object> getCountries() {
 		log.info("Get List of all countries : Controller ");
 		return ResponseUtil.generateSuccessResponse(countryService.getCountryList(), HttpStatus.OK,
-				messageSource.getMessage("geo.success", null, LocaleContextHolder.getLocale()));
+				messageSource.getMessage(Constants.MESSAGE_SUCCESS, null, LocaleContextHolder.getLocale()));
 	}
 }
