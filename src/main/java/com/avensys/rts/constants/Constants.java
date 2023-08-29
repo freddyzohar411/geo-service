@@ -13,4 +13,8 @@ public interface Constants {
 
 	public static final String MESSAGE_SUCCESS = "geo.success";
 	
+	public static final String MESSAGE_WRONG_PARAMS_VALUE = "geo.wrong.param.value";
+	
+	public static final String MESSAGE_PARAMS_MISSING = "geo.param.missing";
+	
 }
