@@ -4,11 +4,16 @@ import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.ResourceBundleMessageSource;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.jdbc.datasource.init.DataSourceInitializer;
+import org.springframework.jdbc.datasource.init.ResourceDatabasePopulator;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import com.avensys.rts.geo.interceptor.AuditInterceptor;
 import com.avensys.rts.geo.interceptor.AuthInterceptor;
+
+import javax.sql.DataSource;
 
 
 /**
@@ -40,5 +45,20 @@ public class AppConfig implements WebMvcConfigurer {
         messageSource.setBasenames("messages");
         messageSource.setDefaultEncoding("UTF-8");
         return messageSource;
+    }
+
+
+    @Bean
+    public DataSourceInitializer dataSourceInitializer(DataSource dataSource) {
+        DataSourceInitializer dataSourceInitializer = new DataSourceInitializer();
+        dataSourceInitializer.setDataSource(dataSource);
+
+        ResourceDatabasePopulator resourceDatabasePopulator = new ResourceDatabasePopulator();
+        resourceDatabasePopulator.addScript(new ClassPathResource("sql/countries_202308291814.sql"));
+        resourceDatabasePopulator.addScript(new ClassPathResource("sql/cities_202308291814.sql"));
+        resourceDatabasePopulator.addScript(new ClassPathResource("sql/states_202308291815.sql"));
+        dataSourceInitializer.setDatabasePopulator(resourceDatabasePopulator);
+
+        return dataSourceInitializer;
     }
 }

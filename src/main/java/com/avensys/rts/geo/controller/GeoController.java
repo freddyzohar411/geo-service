@@ -7,11 +7,7 @@ import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.avensys.rts.constants.Constants;
 import com.avensys.rts.geo.service.CityService;
@@ -25,6 +21,7 @@ import com.avensys.rts.geo.util.ResponseUtil;
  */
 @ResponseBody
 @RestController
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RequestMapping(value = "/geo")
 public class GeoController {
 
@@ -96,6 +93,27 @@ public class GeoController {
 		}
 
 		return ResponseUtil.generateSuccessResponse(cityService.getCitiesByCountryId(countryid), HttpStatus.OK,
+				messageSource.getMessage(Constants.MESSAGE_SUCCESS, null, LocaleContextHolder.getLocale()));
+	}
+
+	@GetMapping("/country-currency")
+	public ResponseEntity<Object> getCountriesAndCurrency() {
+		log.info("Get List of all countries : Controller ");
+		return ResponseUtil.generateSuccessResponse(countriesService.getAllCountriesCurrency(), HttpStatus.OK,
+				messageSource.getMessage(Constants.MESSAGE_SUCCESS, null, LocaleContextHolder.getLocale()));
+	}
+
+	@GetMapping("/country-currency/{countryId}")
+	public ResponseEntity<Object> getCountryCurrencyById(@PathVariable Integer countryId) {
+		log.info("Get country and currency by id : Controller ");
+		return ResponseUtil.generateSuccessResponse(countriesService.getCountryCurrencyById(countryId), HttpStatus.OK,
+				messageSource.getMessage(Constants.MESSAGE_SUCCESS, null, LocaleContextHolder.getLocale()));
+	}
+
+	@GetMapping("/cities")
+	public ResponseEntity<Object> getAllCities() {
+		log.info("Get List of all cities : Controller ");
+		return ResponseUtil.generateSuccessResponse(cityService.getAllCities(), HttpStatus.OK,
 				messageSource.getMessage(Constants.MESSAGE_SUCCESS, null, LocaleContextHolder.getLocale()));
 	}
 	

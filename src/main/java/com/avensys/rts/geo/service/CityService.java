@@ -18,4 +18,5 @@ public interface CityService {
 
 	List<CityDTO> getCitiesByStateId(Integer stateId);
 
+	List<CityDTO> getAllCities();
 }
