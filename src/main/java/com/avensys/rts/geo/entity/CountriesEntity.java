@@ -35,7 +35,7 @@ public class CountriesEntity {
 	@Column(name = "iso3", length = 3)
 	private String iso3;
 	
-	@Column(name = "capital", length = 3)
+	@Column(name = "capital", length = 20)
 	private String capital;
 
 	@Column(name = "phone_code")
@@ -68,7 +68,7 @@ public class CountriesEntity {
 	@Column(name = "nationality", nullable = true)
 	private String nationality;
 
-	@Column(name = "timezones", nullable = true)
+	@Column(name = "timezones", nullable = true, columnDefinition = "TEXT")
 	private String timezones;
 
 	@Column(name = "latitude", nullable = true)

@@ -36,7 +36,13 @@ public class CityServiceImpl implements CityService{
 		log.info("Get Cities by state Id : {}",stateId);
 		return toDTO(cityRepo.findByStateid(stateId));
 	}
-	
+
+	@Override
+	public List<CityDTO> getAllCities() {
+		log.info("Get All Cities");
+		return toDTO(cityRepo.findAll());
+	}
+
 	private List<CityDTO> toDTO(List<CityEntity> entities){
 		
 		List<CityDTO> l = new ArrayList<CityDTO>();
