@@ -83,4 +83,6 @@ public class CountriesEntity {
 	@Column(name = "emojiu", nullable = true)
 	private String emojiu;
 
+	@Column(name = "business", nullable = true)
+	private boolean business;
 }

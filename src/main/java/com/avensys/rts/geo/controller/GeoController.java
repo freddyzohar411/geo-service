@@ -117,4 +117,11 @@ public class GeoController {
 				messageSource.getMessage(Constants.MESSAGE_SUCCESS, null, LocaleContextHolder.getLocale()));
 	}
 	
+	@GetMapping("/offer-country")
+	public ResponseEntity<Object> getBusinessCountries() {
+		log.info("Get List of all cities : Controller ");
+		return ResponseUtil.generateSuccessResponse(countriesService.getOfferedCountries(), HttpStatus.OK,
+				messageSource.getMessage(Constants.MESSAGE_SUCCESS, null, LocaleContextHolder.getLocale()));
+	}
+	
 }

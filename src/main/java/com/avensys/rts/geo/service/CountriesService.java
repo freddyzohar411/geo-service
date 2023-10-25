@@ -2,6 +2,7 @@ package com.avensys.rts.geo.service;
 
 import java.util.List;
 
+import com.avensys.rts.geo.payload.CountriesBusinessDTO;
 import com.avensys.rts.geo.payload.CountriesCurrencyDTO;
 import org.springframework.stereotype.Service;
 
@@ -18,5 +19,7 @@ public interface CountriesService {
 
 	List<CountriesCurrencyDTO> getAllCountriesCurrency();
 
+	List<CountriesBusinessDTO> getOfferedCountries();
+	
 	CountriesCurrencyDTO getCountryCurrencyById(Integer countryId);
 }

@@ -3,6 +3,7 @@ package com.avensys.rts.geo.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.avensys.rts.geo.payload.CountriesBusinessDTO;
 import com.avensys.rts.geo.payload.CountriesCurrencyDTO;
 import jakarta.persistence.EntityNotFoundException;
 import org.apache.logging.log4j.LogManager;
@@ -80,5 +81,20 @@ public class CountriesServiceImpl implements CountriesService {
         c.setCurrencySymbol(e.getCurrencysymbol());
         return c;
     }
+    
+    private CountriesBusinessDTO toCountriesBusinessDTO(CountriesEntity e) {
+    	CountriesBusinessDTO c = new CountriesBusinessDTO();
+        c.setId(e.getId());
+        c.setName(e.getName());
+        c.setIso3(e.getIso3());
+        c.setBusiness(e.isBusiness());
+        return c;
+    }
+
+	@Override
+	public List<CountriesBusinessDTO> getOfferedCountries() {
+		log.info("Get country by business offered places");
+        return countriesRepo.findByBusiness(true).stream().map(this::toCountriesBusinessDTO).toList();
+	}
 
 }
