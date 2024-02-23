@@ -1,17 +1,19 @@
 package com.avensys.rts.geo.payload;
 
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 /**
  * author: Pranay Patadiya
  */
-@Data
+@Setter
+@Getter
 @NoArgsConstructor
 @AllArgsConstructor
 public class StateDTO {
-	
+
 	private int id;
 
 	private String name;
@@ -19,7 +21,7 @@ public class StateDTO {
 	private Integer countryid;
 
 	private String countrycode;
-	
+
 	private String statecode;
 
 }

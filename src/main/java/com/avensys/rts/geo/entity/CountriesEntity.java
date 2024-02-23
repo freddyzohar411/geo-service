@@ -7,8 +7,9 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 /**
  * 
@@ -17,7 +18,8 @@ import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "countries")
-@Data
+@Setter
+@Getter
 @AllArgsConstructor
 @NoArgsConstructor
 public class CountriesEntity {
@@ -34,7 +36,7 @@ public class CountriesEntity {
 
 	@Column(name = "iso3", length = 3)
 	private String iso3;
-	
+
 	@Column(name = "capital", length = 20)
 	private String capital;
 
@@ -58,7 +60,7 @@ public class CountriesEntity {
 
 	@Column(name = "native", nullable = true)
 	private String nativestr;
-	
+
 	@Column(name = "region", nullable = true)
 	private String region;
 

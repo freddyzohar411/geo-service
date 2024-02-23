@@ -7,8 +7,10 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 /**
  * 
  * @author Pranay.Patadiya
@@ -16,7 +18,8 @@ import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "states")
-@Data
+@Setter
+@Getter
 @AllArgsConstructor
 @NoArgsConstructor
 public class StateEntity {
@@ -32,7 +35,7 @@ public class StateEntity {
 
 	@Column(name = "country_code")
 	private String country_code;
-	
+
 	@Column(name = "country_name")
 	private String countryname;
 
