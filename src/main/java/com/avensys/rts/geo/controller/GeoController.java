@@ -26,18 +26,16 @@ import com.avensys.rts.geo.util.ResponseUtil;
 public class GeoController {
 
 	private static final Logger log = LogManager.getLogger(GeoController.class);
-	
-	
+
 	@Autowired
 	private CountriesService countriesService;
 
 	@Autowired
 	private StateService stateService;
 
-
 	@Autowired
 	private CityService cityService;
-	
+
 	@Autowired
 	MessageSource messageSource;
 
@@ -116,7 +114,15 @@ public class GeoController {
 		return ResponseUtil.generateSuccessResponse(cityService.getAllCities(), HttpStatus.OK,
 				messageSource.getMessage(Constants.MESSAGE_SUCCESS, null, LocaleContextHolder.getLocale()));
 	}
-	
+
+	/*
+	 * @GetMapping("/cities/order") public ResponseEntity<Object> getAllCities1() {
+	 * log.info("Get List of all cities : Controller "); return
+	 * ResponseUtil.generateSuccessResponse(cityService.getAllCitiesWithOrder(),
+	 * HttpStatus.OK, messageSource.getMessage(Constants.MESSAGE_SUCCESS, null,
+	 * LocaleContextHolder.getLocale())); }
+	 */
+
 	@GetMapping("/offer-country")
 	public ResponseEntity<Object> getBusinessCountries() {
 		log.info("Get List of all cities : Controller ");
@@ -124,4 +130,11 @@ public class GeoController {
 				messageSource.getMessage(Constants.MESSAGE_SUCCESS, null, LocaleContextHolder.getLocale()));
 	}
 	
+	@GetMapping("/country/phonecode")
+	public ResponseEntity<Object> getPhonecode() {
+		log.info("Get List of all countries : Controller ");
+		return ResponseUtil.generateSuccessResponse(countriesService.getAllCountriesPhonecode(), HttpStatus.OK,
+				messageSource.getMessage(Constants.MESSAGE_SUCCESS, null, LocaleContextHolder.getLocale()));
+	}
+
 }
