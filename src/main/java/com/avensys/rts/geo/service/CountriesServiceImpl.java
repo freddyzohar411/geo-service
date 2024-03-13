@@ -1,19 +1,22 @@
 package com.avensys.rts.geo.service;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
-import com.avensys.rts.geo.payload.CountriesBusinessDTO;
-import com.avensys.rts.geo.payload.CountriesCurrencyDTO;
-import jakarta.persistence.EntityNotFoundException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.avensys.rts.geo.entity.CountriesEntity;
+import com.avensys.rts.geo.payload.CountriesBusinessDTO;
+import com.avensys.rts.geo.payload.CountriesCurrencyDTO;
 import com.avensys.rts.geo.payload.CountriesDTO;
 import com.avensys.rts.geo.repository.CountriesRepository;
+
+import jakarta.persistence.EntityNotFoundException;
 
 /**
  * @author Pranay.Patadiya
@@ -31,6 +34,12 @@ public class CountriesServiceImpl implements CountriesService {
     public List<CountriesDTO> getAllCountries() {
         log.info("Get all countries");
         return this.toDTO(countriesRepo.findAll());
+    }
+    
+    @Override
+    public List<CountriesDTO> getAllCountriesPhonecode() {
+        log.info("Get all countries");
+        return this.toDTO1(countriesRepo.findAll());
     }
 
     @Override
@@ -56,7 +65,8 @@ public class CountriesServiceImpl implements CountriesService {
      */
     private List<CountriesDTO> toDTO(List<CountriesEntity> coutnriesEntityList) {
         List<CountriesDTO> list = new ArrayList<>();
-
+        List<CountriesDTO> sortedList = new ArrayList<>();
+        
         for (CountriesEntity e : coutnriesEntityList) {
             CountriesDTO c = new CountriesDTO();
             c.setId(e.getId());
@@ -66,8 +76,31 @@ public class CountriesServiceImpl implements CountriesService {
 
             list.add(c);
         }
+        sortedList = list.stream()
+		        .sorted(Comparator.comparing(CountriesDTO::getName))
+		        .collect(Collectors.toList());
 
-        return list;
+        return sortedList;
+    }
+    
+    private List<CountriesDTO> toDTO1(List<CountriesEntity> coutnriesEntityList) {
+        List<CountriesDTO> list = new ArrayList<>();
+        List<CountriesDTO> sortedList = new ArrayList<>();
+        
+        for (CountriesEntity e : coutnriesEntityList) {
+            CountriesDTO c = new CountriesDTO();
+            c.setId(e.getId());
+            c.setName(e.getName());
+            c.setIso3(e.getIso3());
+            c.setPhonecode(e.getPhonecode());
+
+            list.add(c);
+        }
+        sortedList = list.stream()
+		        .sorted(Comparator.comparing(CountriesDTO::getPhonecode))
+		        .collect(Collectors.toList());
+
+        return sortedList;
     }
 
     private CountriesCurrencyDTO toCountriesCurrencyDTO(CountriesEntity e) {

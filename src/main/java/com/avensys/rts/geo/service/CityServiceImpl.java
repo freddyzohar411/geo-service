@@ -1,7 +1,9 @@
 package com.avensys.rts.geo.service;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -17,23 +19,22 @@ import com.avensys.rts.geo.repository.CityRepository;
  * @author Pranay.Patadiya
  */
 @Component
-public class CityServiceImpl implements CityService{
+public class CityServiceImpl implements CityService {
 
-
-	private static final Logger log = LogManager.getLogger(CityServiceImpl.class);	
+	private static final Logger log = LogManager.getLogger(CityServiceImpl.class);
 
 	@Autowired
 	CityRepository cityRepo;
-	
+
 	@Override
 	public List<CityDTO> getCitiesByCountryId(Integer countryId) {
-		log.info("Get Cities by Country Id : {}",countryId);
+		log.info("Get Cities by Country Id : {}", countryId);
 		return toDTO(cityRepo.findByCountryid(countryId));
 	}
 
 	@Override
 	public List<CityDTO> getCitiesByStateId(Integer stateId) {
-		log.info("Get Cities by state Id : {}",stateId);
+		log.info("Get Cities by state Id : {}", stateId);
 		return toDTO(cityRepo.findByStateid(stateId));
 	}
 
@@ -42,13 +43,21 @@ public class CityServiceImpl implements CityService{
 		log.info("Get All Cities");
 		return toDTO(cityRepo.findAll());
 	}
+	
 
-	private List<CityDTO> toDTO(List<CityEntity> entities){
-		
+	/*
+	 * @Override public List<CityDTO> getAllCitiesWithOrder() {
+	 * log.info("Get All Cities"); return toDTO(cityRepo.getAllCitiesWithSorting());
+	 * 
+	 * }
+	 */
+
+	private List<CityDTO> toDTO(List<CityEntity> entities) {
+
 		List<CityDTO> l = new ArrayList<CityDTO>();
+		List<CityDTO> sortedList = new ArrayList<CityDTO>();
+		for (CityEntity c : entities) {
 
-		for(CityEntity c : entities) {
-			
 			CityDTO dto = new CityDTO();
 			dto.setCountrycode(c.getCountrycode());
 			dto.setName(c.getName());
@@ -56,12 +65,17 @@ public class CityServiceImpl implements CityService{
 			dto.setStatecode(c.getStatecode());
 			dto.setCountryid(c.getCountryid());
 			dto.setStateid(c.getStateid());
-			
+
 			l.add(dto);
-			
+
 		}
 		
-		return l;
+		  sortedList = l.stream() .sorted(Comparator.comparing(CityDTO::getName))
+		  .collect(Collectors.toList());
+		 
+
+		return sortedList;
 	}
+
 
 }

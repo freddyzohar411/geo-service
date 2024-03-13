@@ -16,10 +16,13 @@ import com.avensys.rts.geo.payload.CountriesDTO;
 public interface CountriesService {
 
 	List<CountriesDTO> getAllCountries();
+	
+	List<CountriesDTO> getAllCountriesPhonecode();
 
 	List<CountriesCurrencyDTO> getAllCountriesCurrency();
 
 	List<CountriesBusinessDTO> getOfferedCountries();
 	
 	CountriesCurrencyDTO getCountryCurrencyById(Integer countryId);
+	
 }
